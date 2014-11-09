@@ -50,8 +50,8 @@ fi
 status "Downloading and installing Libzmq-dev"
 url="http://download.zeromq.org/zeromq-4.0.5.tar.gz"
 curl $url -s -o - | tar xzf - -C $build_dir
-cd $build_dir ./configure
-cd $build_dir make install
+cd zeromq-4.0.5 ./configure
+cd zeromq-4.0.5 make install
 
 
 # Download node from Heroku's S3 mirror of nodejs.org/dist
