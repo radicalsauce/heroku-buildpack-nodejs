@@ -22,6 +22,9 @@ trap cat_npm_debug_log ERR
 # Look in package.json's engines.node field for a semver range
 semver_range=$(cat $build_dir/package.json | $bp_dir/vendor/jq -r .engines.node)
 
+# Resolve current 0MQ version
+#
+
 # Resolve node version using semver.io
 node_version=$(curl --silent --get --data-urlencode "range=${semver_range}" https://semver.io/node/resolve)
 
@@ -42,6 +45,13 @@ else
   status "Requested node range:  $semver_range"
   status "Resolved node version: $node_version"
 fi
+
+# Download and install ZeroMQ into sys files
+status "Downloading and installing 0MQ"
+url="http://download.zeromq.org/zeromq-4.0.5.tar.gz"
+curl $url -s -o - | tar xzf - -C $build_dir
+cd $build_dir ./configure
+sudo make install
 
 # Download node from Heroku's S3 mirror of nodejs.org/dist
 status "Downloading and installing node"
