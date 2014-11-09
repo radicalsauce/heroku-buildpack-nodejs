@@ -48,11 +48,11 @@ fi
 
 # Download and install Libzmq into sys files
 status "Downloading and installing Libzmq-dev"
-# url="http://download.zeromq.org/zeromq-4.0.5.tar.gz"
-# curl $url -s -o - | tar xzf - -C $build_dir
-# cd $build_dir ./configure
-# cd $build_dir make install
-apt-get install libzmq-dev nodejs-legacy
+url="http://download.zeromq.org/zeromq-4.0.5.tar.gz"
+curl $url -s -o - | tar xzf - -C $build_dir
+cd $build_dir ./configure
+cd $build_dir make install
+
 
 # Download node from Heroku's S3 mirror of nodejs.org/dist
 status "Downloading and installing node"
