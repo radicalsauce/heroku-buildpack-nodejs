@@ -47,11 +47,13 @@ else
 fi
 
 # Download and install Libzmq into sys files
-status "Downloading and installing Libzmq-dev"
-url="http://download.zeromq.org/zeromq-4.0.5.tar.gz"
-curl $url -s -o - | tar xzf - -C $build_dir
-cd zeromq-4.0.5 ./configure
-cd zeromq-4.0.5 make install
+wget http://download.zeromq.org/zeromq-3.2.4.tar.gz
+tar -xf zeromq-3.2.4.tar.gz
+cd 'zeromq-3.2.4'
+./configure --prefix=$(readlink -f ..)
+make && make install
+export CXXFLAGS="-I $(readlink -f ../include)"
+export LDFLAGS="-L $(readlink -f ../lib) -Wl,-rpath=$(readlink -f ../lib)"
 
 
 # Download node from Heroku's S3 mirror of nodejs.org/dist
